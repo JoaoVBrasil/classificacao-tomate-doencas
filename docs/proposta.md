@@ -170,17 +170,41 @@ Razões baseadas em pesquisa e raciocínio técnico, obtidas **antes de qualquer
 - Segundo a descrição textual dos sintomas (Seção 1), as 4 classes escolhidas têm assinaturas visuais qualitativamente distintas — em especial, o vira-cabeça-amarelo (amarelecimento + deformação) deveria ser separável das demais com características simples de cor.
 - As técnicas cogitadas (limiarização, GLCM, k-NN/SVM) são clássicas, bem documentadas e não exigem hardware especializado (GPU), compatível com o prazo e os recursos da disciplina.
 
-### 8.2 Investigação que ainda precisa ser realizada
+### 8.2 Investigação inicial
 
-Este é o plano de investigação do grupo para as próximas semanas — a seção deve ser reescrita com resultados reais antes da entrega:
+A investigação foi iniciada com o download e a inspeção visual das imagens das quatro classes escolhidas. Foram observadas aproximadamente 15–20 imagens de cada classe, buscando identificar diferenças visíveis antes dos testes quantitativos.
 
 - [X] Baixar o subconjunto de tomate do PlantVillage (ver `images/README.md`)
-- [ ] Inspecionar manualmente pelo menos 15–20 imagens de cada uma das 4 classes e registrar, com as próprias palavras do grupo, semelhanças e diferenças visuais observadas
+- [X] Inspecionar manualmente pelo menos 15–20 imagens de cada uma das 4 classes e registrar, com as próprias palavras do grupo, semelhanças e diferenças visuais observadas
 - [ ] Verificar, com um histograma de cor simples (ex.: em HSV), se existe alguma separação visível entre pelo menos duas das classes
 - [ ] Testar pelo menos um método de segmentação folha/fundo em um pequeno lote de imagens e avaliar visualmente o resultado
-- [ ] Reescrever esta seção substituindo as afirmações acima por observações concretas, com imagens de exemplo quando possível
+- [ ] Atualizar esta seção com os resultados dos testes, incluindo imagens de exemplo quando possível
 
----
+#### Inspeção visual das imagens
+
+#### Tomato___healthy
+- As folhas são, em geral, verdes.
+- Não foram percebidas manchas grandes ou alterações muito evidentes.
+- O fundo das imagens é relativamente uniforme.
+
+#### Tomato___Late_blight
+- Foram observadas manchas mais escuras em várias das folhas.
+- As manchas variam de tamanho e formato entre as imagens.
+- As folhas apresentam mais variação de cor do que as da classe saudável.
+
+#### Tomato___Septoria_leaf_spot
+- Foram observadas várias manchas pequenas espalhadas pelas folhas.
+- As manchas apresentam uma diferença de cor em relação ao restante da folha.
+- A quantidade e a distribuição das manchas mudam entre as imagens.
+
+#### Tomato___Tomato_Yellow_Leaf_Curl_Virus
+- Foram observadas folhas com partes mais amareladas.
+- Algumas imagens apresentam folhas com aparência diferente no formato, como bordas enroladas.
+- A mudança de cor parece ser mais geral na folha, em vez de estar concentrada apenas em pequenas manchas.
+
+#### Observação inicial
+
+Pela observação das imagens, foi possível perceber algumas diferenças entre as quatro classes, principalmente nas cores e na presença ou distribuição de manchas. Porém, ainda não sabemos se essas diferenças serão suficientes para separar as classes automaticamente. Por isso, serão realizados testes com os dados, começando pelo histograma de cor.
 
 ## 9. Limitações e riscos conhecidos
 
