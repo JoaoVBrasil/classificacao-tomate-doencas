@@ -177,7 +177,7 @@ A investigação foi iniciada com o download e a inspeção visual das imagens d
 - [X] Baixar o subconjunto de tomate do PlantVillage (ver `images/README.md`)
 - [X] Inspecionar manualmente pelo menos 15–20 imagens de cada uma das 4 classes e registrar, com as próprias palavras do grupo, semelhanças e diferenças visuais observadas
 - [ ] Verificar, com um histograma de cor simples (ex.: em HSV), se existe alguma separação visível entre pelo menos duas das classes
-- [ ] Testar pelo menos um método de segmentação folha/fundo em um pequeno lote de imagens e avaliar visualmente o resultado
+- [X] Testar pelo menos um método de segmentação folha/fundo em um pequeno lote de imagens e avaliar visualmente o resultado
 - [ ] Atualizar esta seção com os resultados dos testes, incluindo imagens de exemplo quando possível
 
 #### Inspeção visual das imagens
