@@ -19,11 +19,9 @@ concordassem com as decisões apresentadas. Especificamente:
   tomate diretamente na página do dataset em [fonte escolhida], 
   confirmando os valores citados na proposta.
 - Verificamos a licença do dataset na fonte específica que baixamos 
-  ([link]), já que a documentação apontou divergência entre mirrors.
+  ([https://data.mendeley.com/datasets/tywbtsjrjv/1]).
 - Testamos a instalação das dependências listadas em requirements.txt 
   em ambiente local, confirmando que o notebook roda sem erros.
-- Ajustamos [citar algo que vocês de fato mudaram, se mudaram algo] 
-  após revisão do grupo.
 
 Todos os integrantes são capazes de explicar e justificar oralmente 
 as decisões técnicas apresentadas neste documento.
