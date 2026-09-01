@@ -58,16 +58,20 @@ As pastas `src/`, `notebooks/`, `tests/` e `results/` **ainda não existem** e s
 ## 7. Organização do repositório
 
 .
-├── README.md              # este arquivo
-├── AI_USAGE.md            # declaração de uso de IA generativa (Seção 16 do enunciado)
-├── requirements.txt       # dependências Python previstas (nenhuma testada ainda)
-├── pyproject.toml         # metadados do projeto
-├── .gitignore
+├── README.md                       # documentação principal do projeto
+├── AI_USAGE.md                     # declaração de uso de IA generativa
+├── requirements.txt                # dependências Python do projeto
+├── pyproject.toml                  # metadados e configuração do projeto
+├── .gitignore                      # arquivos ignorados pelo Git
+│
 ├── docs/
-│   └── proposta.md        # proposta técnica completa
+│   ├── proposta.md                 # proposta técnica do projeto
+│   ├── experiment_histograma/      # experimentos relacionados a histogramas
+│   └── experiment_segmentacao/     # experimentos relacionados à segmentação
+│
 └── images/
-    ├── README.md          # origem, licença e acesso ao dataset PlantVillage
-    └── tomato_subset/     # imagens selecionadas do dataset para o projeto
+    ├── README.md                   # origem e informações sobre o dataset
+    └── tomato_subset/              # subconjunto de imagens utilizado
     
 
 ## 8. Tecnologias previstas
