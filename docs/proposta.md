@@ -176,8 +176,8 @@ A investigação foi iniciada com o download e a inspeção visual das imagens d
 
 - [X] Baixar o subconjunto de tomate do PlantVillage (ver `images/README.md`)
 - [X] Inspecionar manualmente pelo menos 15–20 imagens de cada uma das 4 classes e registrar, com as próprias palavras do grupo, semelhanças e diferenças visuais observadas
-- [ ] Verificar, com um histograma de cor simples (ex.: em HSV), se existe alguma separação visível entre pelo menos duas das classes
-- [X] Testar pelo menos um método de segmentação folha/fundo em um pequeno lote de imagens e avaliar visualmente o resultado
+- [X] Verificar, com um histograma de cor simples (ex.: em HSV), se existe alguma separação visível entre pelo menos duas das classes
+- [ ] Testar pelo menos um método de segmentação folha/fundo em um pequeno lote de imagens e avaliar visualmente o resultado
 - [ ] Atualizar esta seção com os resultados dos testes, incluindo imagens de exemplo quando possível
 
 #### Inspeção visual das imagens
@@ -205,6 +205,16 @@ A investigação foi iniciada com o download e a inspeção visual das imagens d
 #### Observação inicial
 
 Pela observação das imagens, foi possível perceber algumas diferenças entre as quatro classes, principalmente nas cores e na presença ou distribuição de manchas. Porém, ainda não sabemos se essas diferenças serão suficientes para separar as classes automaticamente. Por isso, serão realizados testes com os dados, começando pelo histograma de cor.
+
+#### Histograma de cor HSV
+
+Foi realizado um primeiro teste utilizando a distribuição do canal H (matiz) do espaço HSV nas quatro classes. O histograma apresentou diferenças na distribuição de matiz entre as classes. A classe `Tomato___Tomato_Yellow_Leaf_Curl_Virus` apresentou uma concentração diferente das demais, principalmente em uma faixa de matizes associada a tons mais amarelados. Por outro lado, `Tomato___healthy` e `Tomato___Septoria_leaf_spot` apresentaram maior sobreposição.
+
+Esse resultado indica que o canal H pode ser útil como uma característica de cor, mas provavelmente não será suficiente sozinho para separar todas as quatro classes. Por isso, a investigação continuará considerando outras características de cor e, posteriormente, características de textura.
+
+
+
+
 
 ## 9. Limitações e riscos conhecidos
 
