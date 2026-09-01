@@ -6,10 +6,8 @@ O dataset utilizado é o **PlantVillage**, publicado originalmente por Hughes & 
 
 O dataset original não está mais disponível diretamente em plantvillage.org; hoje é obtido por meio de espelhos ("mirrors") republicados por terceiros, principalmente:
 
-- Kaggle: <https://www.kaggle.com/datasets/abdallahalidev/plantvillage-dataset>
-- GitHub (republicação usada em diversos trabalhos): <https://github.com/spMohanty/PlantVillage-Dataset>
+- Kaggle: <https://data.mendeley.com/datasets/tywbtsjrjv/1>
 
-**Atenção:** como o dataset é redistribuído em várias plataformas, com pequenas variações entre versões, o grupo deve conferir a licença e a contagem exata de imagens diretamente na página escolhida para download, em vez de assumir automaticamente os números abaixo.
 
 ## Quantidade e características
 
@@ -28,17 +26,8 @@ O dataset original não está mais disponível diretamente em plantvillage.org; 
 
 ## Licença e condições de uso
 
-A versão original do PlantVillage é licenciada como **CC0 1.0** (domínio público). Alguns espelhos/republicações podem apresentar termos ligeiramente diferentes. **O grupo deve verificar e registrar aqui a licença exata da página específica utilizada para download antes da entrega final**, citando a fonte e a data de verificação.
-
-## Como obter
-
-O dataset **não está incluído neste repositório** (tamanho incompatível com um repositório Git). Para obtê-lo:
-
-1. Baixar o subconjunto de tomate a partir de um dos links acima.
-2. Salvar localmente em `images/raw/` (pasta já listada no `.gitignore` — não commitar o dataset completo).
-3. Selecionar manualmente 5–10 imagens representativas de cada uma das 4 classes escolhidas e copiá-las para `images/exemplos/` (criar esta pasta ao fazê-lo), para que o repositório tenha uma amostra visual mesmo sem o dataset completo.
-
-**Status atual: nenhuma imagem foi baixada ainda.** Esta seção descreve como obter o dataset, não confirma que isso já foi feito — ver checklist de próximos passos em `../docs/proposta.md`, Seção 12.
+- **Licença:** CC0 1.0. A licença foi verificada na página específica do Mendeley Data utilizada pelo grupo para realizar o download, em 31/08/2026.
+- **O dataset foi baixado pelo grupo a partir da página do Mendeley Data utilizada como fonte:** https://data.mendeley.com/datasets/tywbtsjrjv/1. Foi utilizada a versão `without_augmentation` para a inspeção inicial das imagens. A licença informada na página é **CC0 1.0**.
 
 ## Referências
 
