@@ -47,7 +47,7 @@ Pipeline preliminar: **pré-processamento → segmentação folha/fundo → extr
 
 ## 5. Conjunto de imagens
 
-Base: subconjunto de tomate do dataset **PlantVillage** (Hughes & Salathé, 2015), gratuito e amplamente usado na literatura de PDI/visão computacional para este problema. Origem, licença, contagens e instruções de acesso em [`images/README.md`](images/README.md) — 
+Base: subconjunto de tomate do dataset **PlantVillage** (Hughes & Salathé, 2015), gratuito e amplamente usado na literatura de PDI/visão computacional para este problema. Origem, licença, contagens e instruções de acesso em [`images/README.md`](images/README.md) 
 
 ## 6. Estágio atual do projeto
 
@@ -58,7 +58,7 @@ Base: subconjunto de tomate do dataset **PlantVillage** (Hughes & Salathé, 2015
 
 Os códigos e resultados dos experimentos estão organizados em `docs/experiment_histograma/` e `docs/experiment_segmentacao/`.
 
-A análise dos resultados da segmentação ainda será realizada antes da conclusão da investigação da M1.
+A análise inicial dos resultados da segmentação e histograma ja foi realizada e se encontra dentro das suas pastas citadas anteriormente.
 
 As pastas `src/`, `notebooks/` e `tests/` ainda não foram criadas, pois serão utilizadas nas etapas posteriores, quando houver implementação do pipeline definitivo.
 
@@ -104,7 +104,7 @@ As instruções específicas de execução e os resultados de cada experimento e
 
 📹 **[TODO: link do vídeo, não listado, no YouTube]**
 
-## 11. Documentação adicionale
+## 11. Documentação adicional
 
 - [`docs/proposta.md`](docs/proposta.md) — proposta técnica completa (problema, objetivos, pipeline, arquitetura, viabilidade, referências, próximos passos)
 - [`images/README.md`](images/README.md) — dataset: origem, licença, acesso

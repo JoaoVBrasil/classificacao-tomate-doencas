@@ -22,8 +22,6 @@ Evitamos deliberadamente uma formulação genérica como "usar IA para reconhece
 
 A escolha não foi aleatória: buscamos classes cujos sintomas, descritos na literatura fitopatológica, sugerem assinaturas de **cor e textura qualitativamente diferentes** entre si — em particular, o vira-cabeça-amarelo é o único sintoma que não é "manchas na folha", mas sim deformação + mudança de cor generalizada, o que deve torná-lo o mais fácil de separar das demais classes com características simples. Requeima, septoriose e (por contraste) a classe saudável cobrem, respectivamente, lesões grandes e difusas, lesões pequenas e numerosas, e ausência de lesão — três padrões de textura distintos.
 
-Isso é uma **hipótese de projeto**, baseada em descrição textual dos sintomas, não em inspeção visual das imagens reais.
-
 ---
 
 ## 2. Contexto de aplicação
@@ -81,7 +79,7 @@ Detalhes completos (origem, licença, contagens, instruções de acesso) em [`..
 - Dataset: **PlantVillage** (Hughes & Salathé, 2015) [1], subconjunto de tomate.
 - Aproximadamente 54 mil imagens no dataset completo (38 classes, 14 culturas); o subconjunto de tomate tem 10 classes, com contagem de imagens que varia (~14 a 18 mil) conforme o espelho/versão consultado.
 - Licença original: CC0 (domínio público) — **(https://data.mendeley.com/datasets/tywbtsjrjv/1)**
-- Nenhuma característica das imagens reais (cores predominantes, resolução, presença de ruído, etc.) foi verificada até o momento — ver Seção 8.2.
+
 
 ---
 
@@ -101,7 +99,7 @@ Para cada etapa, finalidade, técnicas cogitadas e dúvidas em aberto:
 | Etapa | Finalidade | Técnica(s) inicialmente consideradas | Entrada | Saída | Principais dúvidas em aberto |
 |---|---|---|---|---|---|
 | Pré-processamento | Padronizar imagens antes das etapas seguintes | Redimensionamento; correção de iluminação (ex.: CLAHE); redução de ruído (filtro Gaussiano) | Imagem RGB original | Imagem RGB padronizada | Quanto essa padronização realmente ajuda, já que o PlantVillage tem fundo/iluminação controlados — precisa ser testado |
-| Segmentação folha/fundo | Isolar a folha para que características extraídas a seguir não sejam afetadas pelo fundo | Limiarização em HSV (fundo costuma ser claro/homogêneo); método de Otsu; GrabCut (OpenCV) como alternativa mais robusta | Imagem padronizada | Máscara binária + folha segmentada | Qual método generaliza melhor entre as 4 classes — nenhum foi testado ainda |
+| Segmentação folha/fundo | Isolar a folha para que características extraídas a seguir não sejam afetadas pelo fundo | Limiarização em HSV (fundo costuma ser claro/homogêneo); método de Otsu; GrabCut (OpenCV) como alternativa mais robusta | Imagem padronizada | Máscara binária + folha segmentada | Limiarização em HSV já testada em 1 imagem por classe (ver Seção 8.2) — funcionou bem para 3 das 4 classes, mas falhou parcialmente em vira-cabeça-amarelo; Otsu e GrabCut ainda não testados |
 | Extração de características | Resumir a folha segmentada em um vetor numérico que capture cor e textura das lesões | Histograma de cor em HSV; GLCM (contraste, homogeneidade, energia) para textura; possível combinação dos dois | Folha segmentada | Vetor de características | Quais descritores realmente discriminam as 4 classes escolhidas — é o cerne da investigação de viabilidade (Seção 8) |
 | Classificação | Atribuir uma das 4 classes ao vetor de características | k-NN (baseline simples); SVM; Random Forest | Vetor de características | Classe prevista (+ confiança, se aplicável) | Qual classificador funciona melhor com poucos dados; quantas imagens por classe bastam para um baseline razoável |
 
@@ -175,8 +173,8 @@ A investigação foi iniciada com o download e a inspeção visual das imagens d
 - [X] Baixar o subconjunto de tomate do PlantVillage (ver `images/README.md`)
 - [X] Inspecionar manualmente pelo menos 15–20 imagens de cada uma das 4 classes e registrar, com as próprias palavras do grupo, semelhanças e diferenças visuais observadas
 - [X] Verificar, com um histograma de cor simples (ex.: em HSV), se existe alguma separação visível entre pelo menos duas das classes
-- [ ] Testar pelo menos um método de segmentação folha/fundo em um pequeno lote de imagens e avaliar visualmente o resultado
-- [ ] Atualizar esta seção com os resultados dos testes, incluindo imagens de exemplo quando possível
+- [X] Testar pelo menos um método de segmentação folha/fundo em um pequeno lote de imagens e avaliar visualmente o resultado
+- [X] Atualizar esta seção com os resultados dos testes, incluindo imagens de exemplo quando possível
 
 #### Inspeção visual das imagens
 
@@ -204,13 +202,6 @@ A investigação foi iniciada com o download e a inspeção visual das imagens d
 
 Pela observação das imagens, foi possível perceber algumas diferenças entre as quatro classes, principalmente nas cores e na presença ou distribuição de manchas. Porém, ainda não sabemos se essas diferenças serão suficientes para separar as classes automaticamente. Por isso, serão realizados testes com os dados, começando pelo histograma de cor.
 
-#### Histograma de cor HSV
-
-Foi realizado um primeiro teste utilizando a distribuição do canal H (matiz) do espaço HSV nas quatro classes. O histograma apresentou diferenças na distribuição de matiz entre as classes. A classe `Tomato___Tomato_Yellow_Leaf_Curl_Virus` apresentou uma concentração diferente das demais, principalmente em uma faixa de matizes associada a tons mais amarelados. Por outro lado, `Tomato___healthy` e `Tomato___Septoria_leaf_spot` apresentaram maior sobreposição.
-
-Esse resultado indica que o canal H pode ser útil como uma característica de cor, mas provavelmente não será suficiente sozinho para separar todas as quatro classes. Por isso, a investigação continuará considerando outras características de cor e, posteriormente, características de textura.
-
-
 
 
 
@@ -236,7 +227,6 @@ Ver [`../AI_USAGE.md`](../AI_USAGE.md) para o registro completo, conforme exigid
 
 [3] GONZALEZ, R. C.; WOODS, R. E. *Digital Image Processing.* 4. ed. Nova York: Pearson, 2018. — referência geral para as técnicas de PDI mencionadas (segmentação, histogramas, GLCM).
 
-Esta é uma lista **inicial**, ponto de partida para leitura própria do grupo — não uma revisão de literatura já realizada. Deve ser expandida conforme o grupo efetivamente ler e utilizar outras fontes.
-
+Esta é uma lista **inicial**, ponto de partida para leitura própria do grupo — não uma revisão de literatura já realizada.
 ---
 
