@@ -89,13 +89,22 @@ Durante a M1, OpenCV, NumPy e Matplotlib já foram utilizados nos experimentos p
 
 ## 9. Reprodutibilidade
 
-Ainda não há experimentos implementados para reproduzir nesta etapa. Instruções de setup de ambiente e execução serão adicionadas junto com o primeiro código, a partir da M2.
+O ambiente Python utilizado nos experimentos é gerenciado por meio de um ambiente virtual (`.venv`), que não é versionado no Git.
+
+As dependências utilizadas estão registradas em `requirements.txt`.
+
+Os experimentos da M1 podem ser executados a partir da raiz do projeto utilizando os scripts presentes em:
+
+- `docs/experiment_histograma/histograma_hsv.py`
+- `docs/experiment_segmentacao/segmentacao_hsv.py`
+
+As instruções específicas de execução e os resultados de cada experimento estão documentados em suas respectivas pastas.
 
 ## 10. Vídeo da M1
 
 📹 **[TODO: link do vídeo, não listado, no YouTube]**
 
-## 11. Documentação adicional
+## 11. Documentação adicionale
 
 - [`docs/proposta.md`](docs/proposta.md) — proposta técnica completa (problema, objetivos, pipeline, arquitetura, viabilidade, referências, próximos passos)
 - [`images/README.md`](images/README.md) — dataset: origem, licença, acesso
