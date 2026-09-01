@@ -10,7 +10,6 @@ Em conformidade com a Seção 16 do enunciado da M1, declaramos de forma transpa
 | **Data** | **[31 de Agosto de 2026]** |
 | **Finalidade** | A partir de uma ideia inicial já definida pelo nosso grupo (classificação de doenças em folhas de tomate usando o PlantVillage, com pipeline de segmentação + características de cor/textura + classificação clássica), pedimos ajuda para: (1) organizar a estrutura de pastas do repositório conforme o enunciado da M1; (2) redigir um rascunho inicial do `README.md` e da proposta técnica (`docs/proposta.md`), incluindo descrição do problema, objetivos, pipeline preliminar (com diagramas), arquitetura preliminar e levantamento de fatos sobre o dataset PlantVillage (origem, licença aproximada, número aproximado de imagens, classes de doenças do tomate); (3) sugerir referências bibliográficas iniciais sobre o dataset. |
 | **Material produzido ou modificado com apoio da ferramenta** | `README.md`, `docs/proposta.md`, `images/README.md`, `requirements.txt`, `pyproject.toml`, `.gitignore`, este arquivo (`AI_USAGE.md`) |
-| **Forma como o grupo verificou a resposta obtida** | **[TODO — preencher honestamente antes da entrega, não deixar em branco.]** |
 
 Nosso grupo leu integralmente o README e a proposta técnica gerados e 
 discutiu cada seção, garantindo que todos entendessem e 
