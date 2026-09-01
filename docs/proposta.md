@@ -22,7 +22,7 @@ Evitamos deliberadamente uma formulação genérica como "usar IA para reconhece
 
 A escolha não foi aleatória: buscamos classes cujos sintomas, descritos na literatura fitopatológica, sugerem assinaturas de **cor e textura qualitativamente diferentes** entre si — em particular, o vira-cabeça-amarelo é o único sintoma que não é "manchas na folha", mas sim deformação + mudança de cor generalizada, o que deve torná-lo o mais fácil de separar das demais classes com características simples. Requeima, septoriose e (por contraste) a classe saudável cobrem, respectivamente, lesões grandes e difusas, lesões pequenas e numerosas, e ausência de lesão — três padrões de textura distintos.
 
-Isso é uma **hipótese de projeto**, baseada em descrição textual dos sintomas, não em inspeção visual das imagens reais — que ainda não foi feita (ver Seção 8).
+Isso é uma **hipótese de projeto**, baseada em descrição textual dos sintomas, não em inspeção visual das imagens reais.
 
 ---
 
@@ -73,8 +73,6 @@ classificação
    ↓
 classe prevista
 ```
-
----
 
 ## 5. Imagens e dados
 
@@ -134,7 +132,7 @@ flowchart TD
     D --> E3["Random Forest"]
 ```
 
-Na M1, identificar estas alternativas nos parece mais importante do que decidir prematuramente por uma única implementação — nenhuma delas foi testada ainda.
+Na M1, foram realizados experimentos preliminares com histograma de cor em HSV e segmentação por limiarização em HSV. As demais alternativas, como Otsu e GrabCut, permanecem como possibilidades para comparação nas próximas etapas.
 
 ---
 
@@ -155,7 +153,7 @@ flowchart LR
     A --> B --> C --> D
 ```
 
-`src/`, `notebooks/`, `tests/` e `results/` ainda não existem neste repositório — serão criados quando houver conteúdo real para colocar neles, a partir da M2. A arquitetura é compatível com o estágio atual: planejamento de organização, não implementação.
+`src/`, `notebooks/`, `tests/` e `results/` ainda não existem neste repositório — serão criados quando houver conteúdo real para colocar neles, a partir da M2.A arquitetura é compatível com o estágio atual: planejamento de organização, não implementação.
 
 ---
 
