@@ -1,0 +1,11 @@
+# Dependências previstas para o pipeline (Seção 6 de docs/proposta.md).
+# Nenhuma foi instalada/testada ainda — ver docs/proposta.md, Seção 8.2.
+
+opencv-python
+scikit-image
+numpy
+scipy
+matplotlib
+pandas
+scikit-learn
+jupyter

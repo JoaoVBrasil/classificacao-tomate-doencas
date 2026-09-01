@@ -47,28 +47,28 @@ Pipeline preliminar: **pré-processamento → segmentação folha/fundo → extr
 
 ## 5. Conjunto de imagens
 
-Base: subconjunto de tomate do dataset **PlantVillage** (Hughes & Salathé, 2015), gratuito e amplamente usado na literatura de PDI/visão computacional para este problema. Origem, licença, contagens e instruções de acesso em [`images/README.md`](images/README.md) — **o dataset ainda não foi baixado pelo grupo**.
+Base: subconjunto de tomate do dataset **PlantVillage** (Hughes & Salathé, 2015), gratuito e amplamente usado na literatura de PDI/visão computacional para este problema. Origem, licença, contagens e instruções de acesso em [`images/README.md`](images/README.md) — 
 
 ## 6. Estágio atual do projeto
 
-📍 **Fase de definição e planejamento (M1).** Ainda não há código, dataset local ou experimentos executados. O que existe hoje é: definição do problema, pipeline preliminar (hipótese técnica), levantamento sobre o dataset e um plano de investigação de viabilidade — ver checklist em [`docs/proposta.md`](docs/proposta.md#12-próximos-passos-antes-da-entrega).
+📍 **Fase de definição e planejamento (M1).** Ainda não há código. O que existe hoje é: definição do problema, pipeline preliminar (hipótese técnica), levantamento sobre o dataset e um plano de investigação de viabilidade — ver checklist em [`docs/proposta.md`](docs/proposta.md#12-próximos-passos-antes-da-entrega).
 
 As pastas `src/`, `notebooks/`, `tests/` e `results/` **ainda não existem** e serão criadas a partir do momento em que houver conteúdo real para colocar nelas (a partir da M2), seguindo a orientação do enunciado de não criar pastas vazias apenas para reproduzir uma estrutura de referência.
 
 ## 7. Organização do repositório
 
-```text
 .
 ├── README.md              # este arquivo
-├── AI_USAGE.md              # declaração de uso de IA generativa (Seção 16 do enunciado)
-├── requirements.txt         # dependências Python previstas (nenhuma testada ainda)
-├── pyproject.toml           # metadados do projeto
+├── AI_USAGE.md            # declaração de uso de IA generativa (Seção 16 do enunciado)
+├── requirements.txt       # dependências Python previstas (nenhuma testada ainda)
+├── pyproject.toml         # metadados do projeto
 ├── .gitignore
 ├── docs/
-│   └── proposta.md          # proposta técnica completa
+│   └── proposta.md        # proposta técnica completa
 └── images/
-    └── README.md             # origem, licença e acesso ao dataset PlantVillage
-```
+    ├── README.md          # origem, licença e acesso ao dataset PlantVillage
+    └── tomato_subset/     # imagens selecionadas do dataset para o projeto
+    
 
 ## 8. Tecnologias previstas
 

@@ -1,0 +1,19 @@
+[project]
+name = "classificacao-doencas-tomate"
+version = "0.1.0"
+description = "Projeto Aplicado Longitudinal (PDI) - classificacao de doencas em folhas de tomate a partir de cor e textura - Etapa M1"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "opencv-python",
+    "scikit-image",
+    "numpy",
+    "scipy",
+    "matplotlib",
+    "pandas",
+    "scikit-learn",
+    "jupyter",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
