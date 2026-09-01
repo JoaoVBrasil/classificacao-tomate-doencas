@@ -7,7 +7,7 @@ dataset_path = "images/tomato_subset"
 classes = [
     "Tomato___healthy",
     "Tomato___Late_blight",
-    "Tomato___Septoria_leaf_spot",
+    "Tomato___Septoria_leaf_spot",  
     "Tomato___Tomato_Yellow_Leaf_Curl_Virus"
 ]
 
