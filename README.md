@@ -3,7 +3,7 @@
 **Projeto Aplicado Longitudinal — Processamento Digital de Imagens**
 **Etapa M1 — Definição, Investigação de Viabilidade e Planejamento Técnico**
 
-> ⚠️ **Este repositório está na etapa M1.** É um projeto em fase de definição e planejamento — ainda sem código, dataset baixado ou experimentos executados. Ver "6. Estágio atual" abaixo antes de avaliar o que existe aqui.
+> 📍 **O projeto está atualmente na etapa M1.** O dataset foi baixado e foram realizados experimentos preliminares de histograma de cor em HSV e segmentação folha/fundo por HSV. Os resultados desses experimentos ainda estão em análise.
 
 ---
 
@@ -51,9 +51,16 @@ Base: subconjunto de tomate do dataset **PlantVillage** (Hughes & Salathé, 2015
 
 ## 6. Estágio atual do projeto
 
-📍 **Fase de definição e planejamento (M1).** Ainda não há código. O que existe hoje é: definição do problema, pipeline preliminar (hipótese técnica), levantamento sobre o dataset e um plano de investigação de viabilidade — ver checklist em [`docs/proposta.md`](docs/proposta.md#12-próximos-passos-antes-da-entrega).
+📍 **Fase de investigação e viabilidade (M1).** O dataset já foi obtido e foram realizados dois experimentos preliminares:
 
-As pastas `src/`, `notebooks/`, `tests/` e `results/` **ainda não existem** e serão criadas a partir do momento em que houver conteúdo real para colocar nelas (a partir da M2), seguindo a orientação do enunciado de não criar pastas vazias apenas para reproduzir uma estrutura de referência.
+- análise de histograma de cor em HSV;
+- segmentação folha/fundo por limiarização em HSV.
+
+Os códigos e resultados dos experimentos estão organizados em `docs/experiment_histograma/` e `docs/experiment_segmentacao/`.
+
+A análise dos resultados da segmentação ainda será realizada antes da conclusão da investigação da M1.
+
+As pastas `src/`, `notebooks/` e `tests/` ainda não foram criadas, pois serão utilizadas nas etapas posteriores, quando houver implementação do pipeline definitivo.
 
 ## 7. Organização do repositório
 
@@ -76,7 +83,9 @@ As pastas `src/`, `notebooks/`, `tests/` e `results/` **ainda não existem** e s
 
 ## 8. Tecnologias previstas
 
-Python 3, com **OpenCV** e/ou **scikit-image** para processamento de imagens, **NumPy/SciPy** para manipulação numérica, **scikit-learn** para classificadores clássicos (k-NN, SVM, Random Forest) e **Matplotlib/Pandas** para análise e visualização. Justificativa por etapa em [`docs/proposta.md`](docs/proposta.md#6-pipeline-preliminar). Ver `requirements.txt` — nenhuma dependência foi instalada ou testada até o momento.
+Python 3, com **OpenCV** e/ou **scikit-image** para processamento de imagens, **NumPy/SciPy** para manipulação numérica, **scikit-learn** para classificadores clássicos (k-NN, SVM, Random Forest) e **Matplotlib/Pandas** para análise e visualização.
+
+Durante a M1, OpenCV, NumPy e Matplotlib já foram utilizados nos experimentos preliminares de histograma e segmentação. As demais bibliotecas serão utilizadas conforme as próximas etapas do pipeline forem implementadas.
 
 ## 9. Reprodutibilidade
 
