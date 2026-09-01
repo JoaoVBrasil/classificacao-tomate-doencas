@@ -1,26 +1,5 @@
-# Ambientes virtuais
 .venv/
-venv/
-env/
-
-# Python
 __pycache__/
-*.py[cod]
-*.egg-info/
-dist/
-build/
-
-# Jupyter
-.ipynb_checkpoints/
-
-# Dataset baixado localmente (ver images/README.md) — não versionar
-images/raw/
-images/dataset/
-
-# Sistema
+*.pyc
 .DS_Store
-Thumbs.db
-
-# Editores
-.vscode/
-.idea/
+*.egg-info/
