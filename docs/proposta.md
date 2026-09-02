@@ -168,39 +168,35 @@ Razões baseadas em pesquisa e raciocínio técnico, obtidas **antes de qualquer
 
 ### 8.2 Investigação inicial
 
-A investigação foi iniciada com o download e a inspeção visual das imagens das quatro classes escolhidas. Foram observadas aproximadamente 15–20 imagens de cada classe, buscando identificar diferenças visíveis antes dos testes quantitativos.
+A investigação foi iniciada com o download e a inspeção visual das imagens das quatro classes escolhidas, seguida de testes preliminares de histograma de cor e de segmentação folha/fundo. Resultados completos, código e imagens de cada teste estão documentados nos arquivos linkados abaixo.
 
-- [X] Baixar o subconjunto de tomate do PlantVillage (ver `images/README.md`)
-- [X] Inspecionar manualmente pelo menos 15–20 imagens de cada uma das 4 classes e registrar, com as próprias palavras do grupo, semelhanças e diferenças visuais observadas
-- [X] Verificar, com um histograma de cor simples (ex.: em HSV), se existe alguma separação visível entre pelo menos duas das classes
-- [X] Testar pelo menos um método de segmentação folha/fundo em um pequeno lote de imagens e avaliar visualmente o resultado
+- [X] Baixar o subconjunto de tomate do PlantVillage (ver [`images/README.md`](../images/README.md))
+- [X] Inspecionar manualmente pelo menos 15–20 imagens de cada uma das 4 classes — observações registradas abaixo
+- [X] Verificar separação por histograma de cor em HSV — ver [`docs/experiment_histograma/`](../docs/experiment_histograma/)
+- [X] Testar segmentação folha/fundo em um pequeno lote de imagens — ver [`docs/experiment_segmentacao/`](../docs/experiment_segmentacao/)
 - [X] Atualizar esta seção com os resultados dos testes, incluindo imagens de exemplo quando possível
 
 #### Inspeção visual das imagens
 
-#### Tomato___healthy
-- As folhas são, em geral, verdes.
-- Não foram percebidas manchas grandes ou alterações muito evidentes.
-- O fundo das imagens é relativamente uniforme.
+**Tomato___healthy** — folhas em geral verdes, sem manchas grandes ou alterações evidentes; fundo relativamente uniforme.
 
-#### Tomato___Late_blight
-- Foram observadas manchas mais escuras em várias das folhas.
-- As manchas variam de tamanho e formato entre as imagens.
-- As folhas apresentam mais variação de cor do que as da classe saudável.
+**Tomato___Late_blight** — manchas mais escuras, variando em tamanho e formato entre imagens; mais variação de cor que a classe saudável.
 
-#### Tomato___Septoria_leaf_spot
-- Foram observadas várias manchas pequenas espalhadas pelas folhas.
-- As manchas apresentam uma diferença de cor em relação ao restante da folha.
-- A quantidade e a distribuição das manchas mudam entre as imagens.
+**Tomato___Septoria_leaf_spot** — várias manchas pequenas espalhadas, com cor diferente do restante da folha; quantidade e distribuição variam entre imagens.
 
-#### Tomato___Tomato_Yellow_Leaf_Curl_Virus
-- Foram observadas folhas com partes mais amareladas.
-- Algumas imagens apresentam folhas com aparência diferente no formato, como bordas enroladas.
-- A mudança de cor parece ser mais geral na folha, em vez de estar concentrada apenas em pequenas manchas.
+**Tomato___Tomato_Yellow_Leaf_Curl_Virus** — partes mais amareladas, algumas com bordas enroladas; mudança de cor mais generalizada na folha, não concentrada em manchas pontuais.
 
-#### Observação inicial
+Pela observação, foi possível perceber diferenças entre as quatro classes, principalmente em cor e em presença/distribuição de manchas — mas ainda não era possível saber se essas diferenças seriam suficientes para separação automática. Isso motivou os testes quantitativos a seguir.
 
-Pela observação das imagens, foi possível perceber algumas diferenças entre as quatro classes, principalmente nas cores e na presença ou distribuição de manchas. Porém, ainda não sabemos se essas diferenças serão suficientes para separar as classes automaticamente. Por isso, serão realizados testes com os dados, começando pelo histograma de cor.
+#### Resumo dos testes quantitativos
+
+**Histograma de cor (HSV):** o canal de matiz (H) mostrou distribuição visivelmente diferente para `Tomato_Yellow_Leaf_Curl_Virus` (concentrada em tons mais amarelados) em relação às demais classes, mas `healthy` e `Septoria_leaf_spot` se sobrepuseram bastante entre si. Ou seja, o matiz sozinho discrimina bem o vira-cabeça-amarelo, mas não separa as outras três. Detalhes, código e o histograma gerado em [`docs/experiment_histograma/`](../docs/experiment_histograma/).
+
+**Segmentação folha/fundo (HSV + morfologia):** testada em 1 imagem por classe. Funcionou bem para `healthy`, `Late_blight` e `Septoria_leaf_spot`; falhou parcialmente em `Tomato_Yellow_Leaf_Curl_Virus`, cuja máscara ficou mais "quadrada" e cortou parte da folha — provavelmente porque o amarelecimento característico dessa doença cai fora da faixa de matiz configurada como "folha". Isso é um contraponto interessante à hipótese da Seção 8.1 (que apostava nessa classe como a mais fácil de separar): o mesmo sintoma que a distingue visualmente também parece atrapalhar a segmentação. Análise completa, imagens e próximos passos em [`docs/experiment_segmentacao/`](../docs/experiment_segmentacao/).
+
+#### Conclusão da investigação inicial
+
+Os três testes juntos indicam diferenças visuais reais entre as classes, mas nenhuma característica isolada até agora separa todas as quatro. O vira-cabeça-amarelo se destaca dos demais (na inspeção visual e no histograma), mas essa mesma característica expôs uma limitação na segmentação atual. `Late_blight` e `Septoria_leaf_spot` ainda precisam de outra forma de diferenciação entre si, possivelmente por textura — próximo passo natural para a M2.
 
 
 

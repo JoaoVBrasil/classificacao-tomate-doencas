@@ -102,7 +102,7 @@ As instruções específicas de execução e os resultados de cada experimento e
 
 ## 10. Vídeo da M1
 
-📹 **[TODO: link do vídeo, não listado, no YouTube]**
+**[https://youtu.be/BxYLN-WxR5I]**
 
 ## 11. Documentação adicional
 
