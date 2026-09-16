@@ -31,6 +31,9 @@ def segmentar_folha(caminho):
 
 if __name__ == "__main__":
 
+    pasta_resultados = os.path.join(os.path.dirname(__file__), "results")
+    os.makedirs(pasta_resultados, exist_ok=True)
+
     classes = [
         "Tomato___healthy",
         "Tomato___Late_blight",
@@ -54,7 +57,7 @@ if __name__ == "__main__":
 
         mascara, segmentada = segmentar_folha(caminho)
 
-        cv2.imwrite(f"mascara_{classe}.png", mascara)
-        cv2.imwrite(f"folha_segmentada_{classe}.png", segmentada)
+        cv2.imwrite(os.path.join(pasta_resultados, f"mascara_{classe}.png"), mascara)
+        cv2.imwrite(os.path.join(pasta_resultados, f"folha_segmentada_{classe}.png"), segmentada)
 
         print(f"Processada: {classe}")
