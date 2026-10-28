@@ -1,19 +1,27 @@
 [project]
 name = "classificacao-doencas-tomate"
-version = "0.1.0"
-description = "Projeto Aplicado Longitudinal (PDI) - classificacao de doencas em folhas de tomate a partir de cor e textura - Etapa M1"
+version = "0.2.0"
+description = "Pipeline reproduzivel de segmentacao e descritores de folhas de tomate - Etapa M2"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "opencv-python",
-    "scikit-image",
-    "numpy",
-    "scipy",
-    "matplotlib",
-    "pandas",
-    "scikit-learn",
-    "jupyter",
+    "opencv-python>=4.8",
+    "numpy>=1.24",
+    "matplotlib>=3.7",
 ]
 
 [project.optional-dependencies]
 dev = ["pytest"]
+
+[project.scripts]
+tomato-pdi = "tomato_pdi.experiment:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

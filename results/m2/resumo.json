@@ -1,0 +1,14 @@
+{
+  "imagens_avaliadas": 48,
+  "imagens_por_classe": 12,
+  "referencia": "proxy automatico por cor de fundo estimada nos quatro cantos",
+  "aviso": "Dice/IoU medem concordancia com o proxy, nao com anotacao manual.",
+  "sem_morfologia": {
+    "dice_medio": 0.8723124705445316,
+    "iou_medio": 0.792965257212734
+  },
+  "abertura_fechamento": {
+    "dice_medio": 0.8785874026167199,
+    "iou_medio": 0.8029958008255811
+  }
+}

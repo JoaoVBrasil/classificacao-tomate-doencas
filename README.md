@@ -1,112 +1,150 @@
-# Classificação de Doenças em Folhas de Tomate a partir de Cor e Textura
+# Classificação de doenças em folhas de tomate
 
-**Projeto Aplicado Longitudinal — Processamento Digital de Imagens**
-**Etapa M1 — Definição, Investigação de Viabilidade e Planejamento Técnico**
+**Projeto Aplicado Longitudinal — Processamento Digital de Imagens — M2**
+**Grupo 14**
 
-> 📍 **O projeto está atualmente na etapa M1.** O dataset foi baixado e foram realizados experimentos preliminares de histograma de cor em HSV e segmentação folha/fundo por HSV. Os resultados desses experimentos ainda estão em análise.
+## Equipe
 
----
-
-## Integrantes
-
-| Nome completo | Usuário GitHub | Contato |
-|---|---|---|
-| **[João Vitor Schwambach Brasil]** | **[JoaoVBrasil]** | [joaovitorsbrasil11@gmail.com] |
-| **[Luiz Gustavo Machado Muller]** | **[LuizGMMuller]** | [luizgustavomm19@gmail.com] |
-
----
-
-## 1. Problema investigado
-
-O projeto investiga a **classificação de doenças foliares em plantas de tomate (*Solanum lycopersicum*)** a partir de fotografias de folhas individuais, usando técnicas clássicas de PDI (segmentação, características de cor e textura), sem depender de aprendizado profundo.
-
-Delimitamos o escopo a **uma única cultura (tomate)** e a **quatro classes**, em vez de um classificador genérico "doente vs. saudável" ou de todas as 10 classes de tomate disponíveis no dataset, para manter o problema tecnicamente tratável dentro do prazo da disciplina.
-
-### Classes escolhidas
-
-| Classe | Sintoma visual predominante |
+| Integrante | GitHub |
 |---|---|
-| Saudável | Ausência de lesões; folha verde e uniforme |
-| Requeima (*Late blight*) | Lesões grandes, irregulares, verde-acinzentadas a marrom-escuras, aspecto "encharcado" |
-| Vira-cabeça-amarelo (*Tomato Yellow Leaf Curl Virus*) | Amarelecimento (clorose) e enrolamento das bordas — sem lesões pontuais, sintoma qualitativamente diferente das demais |
-| Septoriose (*Septoria leaf spot*) | Muitas manchas pequenas e circulares, com centro claro/acinzentado e borda escura |
+| João Vitor Schwambach Brasil | [@JoaoVBrasil](https://github.com/JoaoVBrasil) |
+| Luiz Gustavo Machado Muller | [@LuizGMMuller](https://github.com/LuizGMMuller) |
 
-A escolha buscou classes com assinaturas visuais suficientemente diferentes entre si (ver justificativa completa em [`docs/proposta.md`](docs/proposta.md#1-problema)).
+## Problema e objetivo
 
-## 2. Contexto de aplicação
+O projeto investiga a análise de imagens de folhas de tomate para distinguir quatro
+classes: saudável, requeima, septoriose e Tomato Yellow Leaf Curl Virus. O objetivo
+final é combinar cor e textura em um classificador clássico. Nesta M2, o fluxo
+executável cobre leitura, segmentação HSV, morfologia, análise de componentes,
+extração de atributos e avaliação preliminar da máscara. A classificação e uma
+referência manual de segmentação permanecem para a M3.
 
-O diagnóstico de doenças foliares em tomate hoje depende majoritariamente de inspeção visual por agrônomos ou pelo próprio produtor. Um classificador automático operável a partir de fotos simples poderia servir como ferramenta de **triagem inicial** — sem substituir diagnóstico profissional. Não pretendemos construir um produto pronto para uso em campo; o contexto orienta decisões técnicas e limitações (detalhado em `docs/proposta.md`).
+O resultado não substitui diagnóstico agronômico. As condições de captura e a
+representatividade das imagens limitam qualquer generalização para lavouras.
 
-## 3. Objetivo geral
+## Estado da implementação
 
-Desenvolver um pipeline de PDI capaz de classificar uma imagem de folha de tomate em uma das quatro classes definidas, a partir de características de cor e textura extraídas da região foliar segmentada. Objetivos específicos e critérios de sucesso verificáveis em [`docs/proposta.md`](docs/proposta.md#3-objetivo).
+| Etapa | Estado |
+|---|---|
+| Leitura das imagens e seleção determinística por classe | Implementado |
+| Máscara inicial por limiar HSV e maior componente conectado | Implementado |
+| Abertura 3×3 e fechamento 5×5 | Implementado e comparado com a máscara sem morfologia |
+| Área, perímetro, circularidade, médias HSV/Lab e GLCM | Implementado; CSV reproduzível |
+| Métricas Dice/IoU | Calculadas contra proxy automático, não contra anotação manual |
+| Classificador e avaliação em treino/validação/teste | Planejado para M3 |
+| Máscaras anotadas manualmente e validação independente | Planejado para M3 |
 
-## 4. Visão resumida da solução proposta
+## Dados
 
-Pipeline preliminar: **pré-processamento → segmentação folha/fundo → extração de características de cor e textura → classificação**. Alternativas consideradas em cada etapa (ex.: limiar em HSV vs. GrabCut para segmentação; k-NN vs. SVM para classificação) e justificativa técnica completa em [`docs/proposta.md`](docs/proposta.md#6-pipeline-preliminar).
+Na cópia local usada para gerar os resultados, havia imagens organizadas em dez
+diretórios de classes de tomate. As quatro classes do escopo somavam 10.628
+imagens: 1.591 saudáveis, 1.909 requeima, 1.771 septoriose e 5.357 Yellow Leaf
+Curl Virus. O experimento M2 usa as primeiras 12 imagens em ordenação numérica de
+cada classe (48 imagens), sem treinamento de modelo. Os arquivos não são incluídos
+no índice Git atual; cada integrante deve obtê-los conforme
+[`images/README.md`](images/README.md).
 
-## 5. Conjunto de imagens
+A origem e licença informadas pelo grupo estão em [`images/README.md`](images/README.md).
+O relatório registra também o que foi possível observar na amostra local e as
+limitações de representatividade. **Não adicione nem publique novos arquivos do
+dataset**; siga as instruções de obtenção e licenciamento descritas naquele
+documento. A remoção dos arquivos do índice Git está preparada para o próximo
+commit; commits públicos anteriores não foram reescritos e podem continuar contendo
+os dados no histórico.
 
-Base: subconjunto de tomate do dataset **PlantVillage** (Hughes & Salathé, 2015), gratuito e amplamente usado na literatura de PDI/visão computacional para este problema. Origem, licença, contagens e instruções de acesso em [`images/README.md`](images/README.md) 
+## Instalação e execução
 
-## 6. Estágio atual do projeto
+Requer Python 3.10 ou superior. A partir da raiz:
 
-📍 **Fase de investigação e viabilidade (M1).** O dataset já foi obtido e foram realizados dois experimentos preliminares:
+```bash
+python3 -m venv .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
+python -m pip install ".[dev]"
+python -m tomato_pdi --samples-per-class 12
+```
 
-- análise de histograma de cor em HSV;
-- segmentação folha/fundo por limiarização em HSV.
+O dataset deve estar em `images/tomato_subset/<nome-da-classe>/`. Reinstale o
+pacote com `python -m pip install ".[dev]"` depois de alterar o código. Para
+escolher outro diretório ou gerar uma amostra maior:
 
-Os códigos e resultados dos experimentos estão organizados em `docs/experiment_histograma/` e `docs/experiment_segmentacao/`.
+```bash
+python -m tomato_pdi \
+  --dataset-dir images/tomato_subset \
+  --output-dir results/m2 \
+  --samples-per-class 12
+```
 
-A análise inicial dos resultados da segmentação e histograma ja foi realizada e se encontra dentro das suas pastas citadas anteriormente.
+Saídas produzidas em `results/m2/`:
 
-As pastas `src/`, `notebooks/` e `tests/` ainda não foram criadas, pois serão utilizadas nas etapas posteriores, quando houver implementação do pipeline definitivo.
+- `segmentacao_metricas.csv`: Dice e IoU por imagem, com/sem morfologia;
+- `descritores.csv`: região e atributos de cor/textura por imagem;
+- `resumo.json`: médias e protocolo da execução;
+- `comparacao_morfologia.png`: comparação das métricas;
+- `mascaras_exemplo.png`: maior e menor concordância observadas.
 
-## 7. Organização do repositório
+O menor Dice/IoU reflete concordância com uma referência automática provisória,
+estimada pela diferença de cor em relação aos quatro cantos da imagem. Ela **não é
+uma anotação de verdade-terreno**; os números são evidência preliminar e precisam
+ser confirmados com máscaras revisadas manualmente.
 
-.
-├── README.md                       # documentação principal do projeto
-├── AI_USAGE.md                     # declaração de uso de IA generativa
-├── requirements.txt                # dependências Python do projeto
-├── pyproject.toml                  # metadados e configuração do projeto
-├── .gitignore                      # arquivos ignorados pelo Git
-│
-├── docs/
-│   ├── proposta.md                 # proposta técnica do projeto
-│   ├── experiment_histograma/      # experimentos relacionados a histogramas
-│   └── experiment_segmentacao/     # experimentos relacionados à segmentação
-│
-└── images/
-    ├── README.md                   # origem e informações sobre o dataset
-    └── tomato_subset/              # subconjunto de imagens utilizado
-    
+Para executar os testes unitários:
 
-## 8. Tecnologias previstas
+```bash
+python -m pytest
+```
 
-Python 3, com **OpenCV** e/ou **scikit-image** para processamento de imagens, **NumPy/SciPy** para manipulação numérica, **scikit-learn** para classificadores clássicos (k-NN, SVM, Random Forest) e **Matplotlib/Pandas** para análise e visualização.
+## Experimento M2 reproduzido
 
-Durante a M1, OpenCV, NumPy e Matplotlib já foram utilizados nos experimentos preliminares de histograma e segmentação. As demais bibliotecas serão utilizadas conforme as próximas etapas do pipeline forem implementadas.
+Pergunta: a abertura e o fechamento morfológicos alteram a concordância da máscara
+HSV com o proxy de fundo? A única variável entre as duas configurações é a
+morfologia. As 48 imagens (12 por classe) e o cálculo da referência são iguais.
 
-## 9. Reprodutibilidade
+Na execução registrada em [`results/m2/resumo.json`](results/m2/resumo.json), a
+média de Dice passou de **0,8723** sem morfologia para **0,8786** com abertura
+3×3 + fechamento 5×5; o IoU médio passou de **0,7930** para **0,8030**. A melhora
+é pequena e não demonstra qualidade real de segmentação porque a referência é
+automática. A figura compara as configurações; `mascaras_exemplo.png` mostra um
+caso de maior concordância e um de menor concordância, incluindo a falha do proxy
+em imagens com fundo heterogêneo ou múltiplas folhas.
 
-O ambiente Python utilizado nos experimentos é gerenciado por meio de um ambiente virtual (`.venv`), que não é versionado no Git.
+![Comparação de métricas da morfologia](results/m2/comparacao_morfologia.png)
 
-As dependências utilizadas estão registradas em `requirements.txt`.
+![Exemplos de máscaras e limitações](results/m2/mascaras_exemplo.png)
 
-Os experimentos da M1 podem ser executados a partir da raiz do projeto utilizando os scripts presentes em:
+## Organização
 
-- `docs/experiment_histograma/histograma_hsv.py`
-- `docs/experiment_segmentacao/segmentacao_hsv.py`
+```text
+src/tomato_pdi/          Pipeline e experimento reproduzível
+tests/                   Testes unitários
+docs/                    Proposta, relatório M2 e experimentos anteriores
+images/                  Instruções e dados locais do projeto
+results/m2/              CSVs, resumo e figuras gerados
+AI_USAGE.md              Declaração de uso de IA generativa
+```
 
-As instruções específicas de execução e os resultados de cada experimento estão documentados em suas respectivas pastas.
+## Evolução, relatório e referências
 
-## 10. Vídeo da M1
+- [`docs/proposta.md`](docs/proposta.md): proposta e estado atualizados.
+- [`docs/revisao_m1_plano_m2.md`](docs/revisao_m1_plano_m2.md): feedback da M1 e
+  revisão/plano da equipe; responsáveis e contribuições foram preenchidos conforme
+  divisão informada pelo grupo. A nota registrada no diário ainda requer consulta.
+- [`docs/relatorio_m2.md`](docs/relatorio_m2.md): protocolo, resultados, análise,
+  limitações e plano M3.
+- [`images/README.md`](images/README.md): origem declarada e condições dos dados.
+- [`AI_USAGE.md`](AI_USAGE.md): registro das ferramentas e materiais apoiados por IA.
 
-**[https://youtu.be/BxYLN-WxR5I]**
+As referências bibliográficas e condições de uso do conjunto estão em
+[`docs/proposta.md`](docs/proposta.md#11-referências) e
+[`images/README.md`](images/README.md).
 
-## 11. Documentação adicional
+## Vídeo M2
 
-- [`docs/proposta.md`](docs/proposta.md) — proposta técnica completa (problema, objetivos, pipeline, arquitetura, viabilidade, referências, próximos passos)
-- [`images/README.md`](images/README.md) — dataset: origem, licença, acesso
-- [`AI_USAGE.md`](AI_USAGE.md) — uso de ferramentas de IA generativa neste projeto
-# classificacao-tomate-doencas
+**O vídeo não foi possível de realizar dentro do prazo e será gravado posteriormente.**
+Depois da gravação, incluir aqui o link não listado. O vídeo deverá contar com
+participação identificável dos dois integrantes e apresentar a evolução, os dados,
+a execução, as máscaras, a comparação, as limitações e o plano M3.
+
+## Identificação da versão de entrega
+
+- Commit/tag M2: **preencher após revisão final e criação da versão de entrega**.
+- Data da entrega: **confirmar com a disciplina**.

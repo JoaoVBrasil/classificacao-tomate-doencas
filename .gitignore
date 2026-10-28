@@ -4,5 +4,6 @@ __pycache__/
 *.pyc
 .DS_Store
 *.egg-info/
+build/
 # Dataset local - não versionar
 images/tomato_subset/

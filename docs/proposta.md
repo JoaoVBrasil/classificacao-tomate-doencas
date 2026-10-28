@@ -1,4 +1,10 @@
-# Proposta Técnica — M1
+# Proposta Técnica — Revisada para M2
+
+> **Estado em 27/10/2026:** a proposta da M1 foi mantida quanto às quatro classes
+> e ao foco em cor/textura. A implementação M2 já processa imagens, segmenta por
+> HSV, compara morfologia, calcula descritores e grava resultados. A classificação
+> e a avaliação com máscaras manuais continuam para a M3. O relatório com evidências
+> e limitações está em [`relatorio_m2.md`](relatorio_m2.md).
 
 ## 1. Problema
 
@@ -10,6 +16,12 @@ Evitamos deliberadamente uma formulação genérica como "usar IA para reconhece
 - **Classes:** 4, não as 10 disponíveis para tomate no dataset.
 - **Entrada:** imagem de uma única folha, fotografada isoladamente contra um fundo relativamente uniforme (como no PlantVillage) — não uma foto de campo com múltiplas folhas e fundo variável.
 - **Saída:** rótulo de uma entre 4 classes.
+
+Essa condição é a hipótese de escopo inicial, não uma propriedade garantida de
+todos os arquivos locais: a inspeção M2 encontrou variação de fundo e exemplos
+com folhas sobrepostas. Ver [`relatorio_m2.md`](relatorio_m2.md) e
+[`../images/README.md`](../images/README.md); a equipe deve confirmar a origem
+exata e revisar a adequação do recorte.
 
 ### Por que estas 4 classes
 
@@ -52,11 +64,11 @@ O objetivo descreve o que o sistema deve **fazer com as imagens** — não apena
 - **Entrada:** imagem digital (RGB) de uma folha de tomate, fotografada individualmente contra um fundo homogêneo, como nas imagens do PlantVillage.
 - **Saída:** rótulo de classe entre as 4 definidas (opcionalmente, quando o classificador permitir, acompanhado de uma medida de confiança).
 
-**Critérios de sucesso verificáveis** (a serem checados na M2/M3, não nesta etapa):
+**Critérios de sucesso verificáveis:**
 
-- O sistema deve distinguir as 4 classes com desempenho sensivelmente melhor que o acaso (baseline ingênuo de 25% de acurácia para 4 classes balanceadas).
-- Ao final da M2, esperamos ter uma versão do pipeline completo rodando de ponta a ponta sobre um subconjunto do dataset — mesmo com desempenho modesto — com métricas registradas (acurácia por classe, matriz de confusão).
-- A matriz de confusão deve ser analisada para verificar quais classes são mais confundidas entre si; temos como hipótese inicial que requeima e septoriose (ambas com lesões escuras) são mais propensas a confusão do que qualquer uma delas com o vira-cabeça-amarelo.
+- **M2:** percorrer um fluxo parcial executável de imagem a máscara/descritores e apresentar uma comparação quantitativa reproduzível; por ora, as métricas usam proxy automático e são preliminares.
+- **M3:** avaliar classificador sobre dados separados sem vazamento e alcançar desempenho acima do baseline de acaso (25% em quatro classes balanceadas); registrar métricas por classe e matriz de confusão.
+- Analisar confusões entre classes, verificando a hipótese de que requeima e septoriose podem se confundir mais que classes com sintomas de cor distintos.
 
 ```text
 imagem
@@ -78,6 +90,7 @@ Detalhes completos (origem, licença, contagens, instruções de acesso) em [`..
 
 - Dataset: **PlantVillage** (Hughes & Salathé, 2015) [1], subconjunto de tomate.
 - Aproximadamente 54 mil imagens no dataset completo (38 classes, 14 culturas); o subconjunto de tomate tem 10 classes, com contagem de imagens que varia (~14 a 18 mil) conforme o espelho/versão consultado.
+- No checkout local, as quatro pastas selecionadas contêm 10.628 imagens; a amostra M2 de 48 imagens mostra variação de fundo e alguns exemplos com folhas sobrepostas. Contagem, protocolo e ressalvas estão em [`../images/README.md`](../images/README.md) e [`relatorio_m2.md`](relatorio_m2.md).
 - Licença original: CC0 (domínio público) — **(https://data.mendeley.com/datasets/tywbtsjrjv/1)**
 
 
@@ -130,7 +143,12 @@ flowchart TD
     D --> E3["Random Forest"]
 ```
 
-Na M1, foram realizados experimentos preliminares com histograma de cor em HSV e segmentação por limiarização em HSV. As demais alternativas, como Otsu e GrabCut, permanecem como possibilidades para comparação nas próximas etapas.
+Na M1, foram realizados experimentos preliminares com histograma de cor em HSV e
+segmentação por limiarização em HSV. Na M2, o limiar HSV e a maior componente
+conectada foram transformados em módulo executável; abertura 3×3 e fechamento 5×5
+foram comparados com ausência de morfologia. O protocolo, as medidas preliminares e
+as limitações estão em [`relatorio_m2.md`](relatorio_m2.md). Otsu, GrabCut e a
+classificação permanecem não implementados.
 
 ---
 
@@ -141,9 +159,9 @@ flowchart LR
     subgraph Dados
     A["images/ — amostra local do PlantVillage \n(subconjunto tomate, 4 classes)"]
     end
-    subgraph Processamento["Processamento (a partir da M2)"]
-    B["notebooks/ — exploração e protótipos"]
-    C["src/ — módulos de pré-processamento, \nsegmentação, extração, classificação"]
+    subgraph Processamento["Processamento (M2)"]
+    B["src/tomato_pdi/ — segmentação, morfologia, \ncomponentes e descritores"]
+    C["tests/ — testes unitários"]
     end
     subgraph Saída["Saída (a partir da M2)"]
     D["results/ — imagens processadas, \nmétricas, gráficos"]
@@ -151,7 +169,9 @@ flowchart LR
     A --> B --> C --> D
 ```
 
-`src/`, `notebooks/`, `tests/` e `results/` ainda não existem neste repositório — serão criados quando houver conteúdo real para colocar neles, a partir da M2.A arquitetura é compatível com o estágio atual: planejamento de organização, não implementação.
+O pacote `src/tomato_pdi/` implementa o fluxo parcial M2. Os arquivos CSV, resumo e
+figuras são reproduzidos em `results/m2/` pelo comando descrito no README. O
+classificador e as máscaras de referência manuais são etapas pendentes.
 
 ---
 
@@ -196,7 +216,12 @@ Pela observação, foi possível perceber diferenças entre as quatro classes, p
 
 #### Conclusão da investigação inicial
 
-Os três testes juntos indicam diferenças visuais reais entre as classes, mas nenhuma característica isolada até agora separa todas as quatro. O vira-cabeça-amarelo se destaca dos demais (na inspeção visual e no histograma), mas essa mesma característica expôs uma limitação na segmentação atual. `Late_blight` e `Septoria_leaf_spot` ainda precisam de outra forma de diferenciação entre si, possivelmente por textura — próximo passo natural para a M2.
+Os testes da M1 indicaram diferenças visuais entre as classes, mas nenhuma
+característica isolada demonstrou separar todas as quatro. Na M2, características
+de cor e GLCM foram extraídas para 48 imagens, mas sua capacidade discriminativa
+ainda não foi avaliada por classificador. O experimento de segmentação mede
+concordância com um proxy automático, não com máscaras de verdade-terreno; a
+validação manual e o teste de classificação ficam para a M3.
 
 
 
@@ -225,4 +250,3 @@ Ver [`../AI_USAGE.md`](../AI_USAGE.md) para o registro completo, conforme exigid
 
 Esta é uma lista **inicial**, ponto de partida para leitura própria do grupo — não uma revisão de literatura já realizada.
 ---
-
